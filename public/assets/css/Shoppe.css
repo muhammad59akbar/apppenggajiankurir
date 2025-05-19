@@ -52,7 +52,8 @@ a:hover .icon-list-nav {
 
 
 .main-content {
-    margin-top: 3rem;
+    position: relative;
+    top: 100px;
     margin-left: 0;
     transition: margin-left 0.3s;
   }
@@ -77,7 +78,8 @@ a:hover .icon-list-nav {
         width: 60px;   
     }
     .main-content {
-        margin-top:5rem;
+          top: 80px;
+      
         margin-left: 16rem;
         
     }
