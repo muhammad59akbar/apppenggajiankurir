@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="<?= base_url('assets/css/Shoppe.css') ?>" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.26/webcam.min.js"></script>
     <title><?= $title; ?></title>
 </head>
 
@@ -56,7 +56,7 @@
                 </a>
             </li>
             <li class="nav-item mt-3 d-flex">
-                <a class=" d-flex align-items-center gap-3 text-white mx-2 text-decoration-none" href="">
+                <a class=" d-flex align-items-center gap-3 text-white mx-2 text-decoration-none" href="<?= base_url('spxcgk4/barang/DataBarang') ?>">
                     <i class="bi bi-box-fill fs-4 icon-list-nav"></i>
                     <span class="menuname-nav">Daftar Paket</span>
                 </a>

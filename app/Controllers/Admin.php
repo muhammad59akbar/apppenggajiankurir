@@ -145,5 +145,44 @@ class Admin extends BaseController
         if (!$this->validate($formValidasi)) {
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
+        $password = $this->request->getPost('password');
+        $checkpwpengguna = $this->UserModels->find($id_pengguna);
+
+        if (!empty($password)) {
+            $passwordbaru = Password::hash($password, PASSWORD_BCRYPT);
+        } else {
+            $passwordbaru = $checkpwpengguna->password_hash;
+        }
+
+        $username = $this->request->getPost('username');
+        $data = [
+            'id' => $id_pengguna,
+            'email' => $this->request->getPost('email'),
+            'username' =>  $username,
+            'namalengkap' => $this->request->getPost('namalengkap'),
+            'alamat' => $this->request->getPost('alamat'),
+            'notelp' => $this->request->getPost('notelp'),
+            'password_hash' => $passwordbaru
+
+        ];
+
+        $this->UserModels->save($data);
+        $jabatan = $this->request->getPost('jabatanpengguna');
+        $this->GroupModels->updateUserGroup($id_pengguna, $jabatan);
+        \Config\Services::cache()->clean();
+        return redirect()->to('private/admin/detailPengguna/' . $username)->with('message', 'Data pengguna berhasil diubah!');
+    }
+
+    public function hapusPengguna($id_pengguna)
+    {
+        $pengguna = $this->UserModels->find($id_pengguna);
+        if ($pengguna) {
+            $jabatan = $this->GroupModels->getGroupsForUser($id_pengguna);
+            foreach ($jabatan as $j) {
+                $this->GroupModels->removeUserFromGroup($id_pengguna, $j['group_id']);
+            }
+        }
+        $this->UserModels->delete($id_pengguna, true);
+        return redirect()->to('private/admin/DataPengguna')->with('message', 'Data pengguna berhasil diHapus !!!');
     }
 }
